@@ -20,14 +20,14 @@ public class Result implements Serializable {
     }
 
     public static Result success(Object data){
-        return Result.getResult("200","operate success",data);
+        return getResult("200","operate success",data);
     }
 
     public static Result fail(String code,String msg){
-        return Result.getResult(code,msg,null);
+        return  getResult(code,msg,null);
     }
 
     public static Result fail(String msg) {
-        return Result.getResult("400", msg, null);
+        return  getResult("400", msg, null);
     }
 }
