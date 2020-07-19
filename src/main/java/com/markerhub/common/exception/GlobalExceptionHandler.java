@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = IllegalArgumentException.class)
     public Result handler(IllegalArgumentException e) throws IOException {
-        log.error("Assert异常:-------------->{}",e.getMessage());
+        log.error("Assert Exception:-------------->{}",e.getMessage());
         return Result.fail(e.getMessage());
     }
     /**
@@ -37,7 +37,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public Result handler(MethodArgumentNotValidException e) throws IOException {
-        log.error("运行时异常:-------------->",e);
+        log.error("Runtime Exception:-------------->",e);
         BindingResult bindingResult = e.getBindingResult();
         ObjectError objectError = bindingResult.getAllErrors().stream().findFirst().get();
         return Result.fail(objectError.getDefaultMessage());
@@ -46,7 +46,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = RuntimeException.class)
     public Result handler(RuntimeException e) throws IOException {
-        log.error("运行时异常:-------------->",e);
+        log.error("Runtime Exception:-------------->",e);
         return Result.fail(e.getMessage());
     }
 }

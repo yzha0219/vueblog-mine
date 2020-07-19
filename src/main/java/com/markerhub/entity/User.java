@@ -9,6 +9,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+
 /**
  * <p>
  * 
@@ -28,12 +31,16 @@ public class User implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
+    @NotNull(message = "username must not be null!")
     private String username;
 
     private String avatar;
 
+    @NotNull(message = "email must not be null!")
+    @Email(message = "email syntax invalid!")
     private String email;
 
+    @NotNull(message = "password must not be null!")
     private String password;
 
     private Integer status;
