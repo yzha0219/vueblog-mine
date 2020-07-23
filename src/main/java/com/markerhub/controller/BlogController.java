@@ -30,6 +30,7 @@ public class BlogController {
 
     @Autowired
     BlogService blogService;
+
     @GetMapping("/blogs")
     public Result blogs(Integer currentPage) {
         if(currentPage == null || currentPage < 1) currentPage = 1;
@@ -61,6 +62,14 @@ public class BlogController {
         }
         BeanUtil.copyProperties(blog, temp, "id", "userId", "created", "status");
         blogService.saveOrUpdate(temp);
+        return Result.success(temp);
+    }
+
+    @RequiresAuthentication
+    @DeleteMapping("/blog/delete/{id}")
+    public Result delete(@PathVariable(name = "id") Long id){
+        Assert.isTrue(id == ShiroUtil.getProfile().getId(), "No authority to delete!");
+        blogService.removeById(id);
         return Result.success(null);
     }
 }
