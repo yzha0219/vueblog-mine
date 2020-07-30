@@ -30,11 +30,11 @@ public class AccountController {
     @PostMapping("/login")
     public Result login(@Validated @RequestBody LoginDto loginDto, HttpServletResponse response) {
         User user = userService.getOne(new QueryWrapper<User>().eq("username", loginDto.getUsername()));
-        Assert.notNull(user, "用户不存在");
+        Assert.notNull(user, "user doesn't exist!");
         if(!user.getPassword().equals(SecureUtil.md5(loginDto.getPassword()))) {
-            return Result.fail("密码错误！");
+            return Result.fail("password is incorrect!");
         }
-        String jwt = jwtUtils.generateToken(user.getId());
+        String jwt = jwtUtils. generateToken(user.getId());
         response.setHeader("Authorization", jwt);
         response.setHeader("Access-Control-Expose-Headers", "Authorization");
         // 用户可以另一个接口
