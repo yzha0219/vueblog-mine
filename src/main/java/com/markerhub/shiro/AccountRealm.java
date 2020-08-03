@@ -23,6 +23,11 @@ public class AccountRealm extends AuthorizingRealm {
     UserService userService;
 
     @Override
+    public boolean supports(AuthenticationToken token) {
+        return token instanceof JwtToken;
+    }
+
+    @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         return null;
     }
