@@ -1,6 +1,7 @@
 package com.markerhub.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.markerhub.common.lang.Result;
 import com.markerhub.entity.User;
 import com.markerhub.service.UserService;
@@ -38,4 +39,13 @@ public class UserController {
         return Result.success(user);
     }
 
+    @GetMapping("/getUserByUserName/{username}")
+    public Result getUserByUserName(@PathVariable("username") String username){
+        User user = userService.getOne(new QueryWrapper<User>().eq("username",username));
+        if(user == null) {
+            return Result.success(false);
+        } else {
+            return Result.success(true);
+        }
+    }
 }
