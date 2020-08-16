@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -43,7 +45,7 @@ public class User implements Serializable {
     @NotNull(message = "password must not be null!")
     private String password;
 
-    private Integer status;
+    private Integer status = 0;
 
     private LocalDateTime created;
 

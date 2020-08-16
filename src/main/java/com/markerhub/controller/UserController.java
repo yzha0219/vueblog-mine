@@ -36,7 +36,10 @@ public class UserController {
 
     @PostMapping("/save")
     public Result save(@Validated @RequestBody User user){
-        return Result.success(user);
+        if(userService.save(user))
+            return Result.success(user);
+        else
+            return Result.fail("Sign Up failed!");
     }
 
     @GetMapping("/getUserByUserName/{username}")
