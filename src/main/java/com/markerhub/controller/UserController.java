@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.markerhub.common.lang.Result;
 import com.markerhub.entity.User;
 import com.markerhub.service.UserService;
+import com.markerhub.util.ShiroUtil;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +42,15 @@ public class UserController {
             return Result.success(user);
         else
             return Result.fail("Sign Up failed!");
+    }
+
+    @PostMapping("/edit")
+    @RequiresAuthentication
+    public Result edit(@Validated @RequestBody User user){
+        User temp = userService.getById(ShiroUtil.getProfile().getId());
+        BeanUtils.copyProperties(user, temp, "id", "status", "created");
+        userService.saveOrUpdate(temp);
+        return Result.success(temp);
     }
 
     @GetMapping("/getUserByUserName/{username}")
